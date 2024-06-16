@@ -15,7 +15,7 @@ public class Main {
 
         if(result.isSuccessful()){
             for(int pid : result.pids()) {
-                System.out.println(pid);
+                System.out.println(Integer.toHexString(pid));
             }
             System.exit(0);
         } else if(result.errorPacketIndex() == -1 && result.errorByteOffset() == -1) {

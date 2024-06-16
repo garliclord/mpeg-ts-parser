@@ -38,6 +38,8 @@ public class MpegTsParser {
                 }
             }
 
+            pids.sort(Integer::compareTo);
+
             return new Result(true, pids, -1, -1);
 
         }
