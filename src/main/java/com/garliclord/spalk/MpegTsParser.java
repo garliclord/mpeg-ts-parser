@@ -44,14 +44,13 @@ public class MpegTsParser {
     }
 
     private static int goToStartOfCompletePacket(PositionalBufferedInputStream bin) throws IOException {
-        int temp;
+        int temp = bin.read();
         do {
-            temp = bin.read();
             if (temp == SYNC_BYTE) {
                 bin.mark(PACKET_LENGTH);
                 bin.skip(PACKET_LENGTH - 1);
-                temp = bin.read();
             }
+            temp = bin.read();
         } while ((temp != -1 && temp != SYNC_BYTE));
         bin.reset();
         return temp;

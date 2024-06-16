@@ -91,10 +91,10 @@ class MpegTsParserTest {
         list.add(SYNC_BYTE);
         list.addAll(List.of(bytePairA[0], bytePairA[1]));
         list.addAll(Collections.nCopies(PACKET_LENGTH - 3, (byte) 0x00));
-        list.add(SYNC_BYTE);
+        list.add(NON_SYNC_BYTE);
         list.addAll(List.of(bytePairB[0], bytePairB[1]));
         list.addAll(Collections.nCopies(PACKET_LENGTH - 3, (byte) 0x00));
-        list.add(NON_SYNC_BYTE);
+        list.add(SYNC_BYTE);
         list.addAll(List.of(bytePairC[0], bytePairC[1]));
         list.addAll(Collections.nCopies(PACKET_LENGTH - 3, (byte) 0x00));
 
@@ -111,7 +111,7 @@ class MpegTsParserTest {
         int pidC = twoBytesToPid(bytePairC);
 
         assertFalse(result.isSuccessful());
-        assertEquals(2, result.errorPacketIndex());
-        assertEquals(377, result.errorByteOffset());
+        assertEquals(1, result.errorPacketIndex());
+        assertEquals(189, result.errorByteOffset());
     }
 }
