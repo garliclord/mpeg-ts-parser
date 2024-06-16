@@ -4,10 +4,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-
-        //cat test_success.ts | java -classpath .\target\classes com.garliclord.spalk.Main
-//        cat ./src/test/resources/test_success.ts | java -classpath ./target/classes com.garliclord.spalk.Main
-
         MpegTsParser parser = new MpegTsParser();
         Result result = null;
         try {

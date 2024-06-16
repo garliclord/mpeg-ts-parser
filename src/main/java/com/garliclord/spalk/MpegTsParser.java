@@ -17,6 +17,7 @@ public class MpegTsParser {
 
             if (start != SYNC_BYTE) {
                 // no sync byte found
+                //TODO log it
                 return new Result(false, List.of(), -1, -1);
             }
 
@@ -32,6 +33,7 @@ public class MpegTsParser {
                 packetCount++;
                 temp = bin.read();
                 if (temp != SYNC_BYTE && temp != -1) {
+                    //TODO log it
                     return new Result(false, List.of(), packetCount, bin.getPosition());
                 }
             }
