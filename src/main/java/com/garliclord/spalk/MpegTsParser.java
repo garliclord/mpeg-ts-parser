@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +13,8 @@ public class MpegTsParser {
     int errorPacketIndex = -1;
     int errorByteOffset = -1;
 
-    public Result parse(InputStream input) {
+    public Result parse(InputStream input) throws IOException {
         try (BufferedInputStream bin = new BufferedInputStream(input)) {
-
             int temp;
             do {
                 temp = bin.read();
@@ -64,8 +62,6 @@ public class MpegTsParser {
             //output result
             return new Result(true, pids, -1, -1);
 
-        } catch (IOException e) {
-            return new Result(false, List.of(), errorPacketIndex, errorByteOffset);
         }
     }
 

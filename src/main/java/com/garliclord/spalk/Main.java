@@ -1,12 +1,20 @@
 package com.garliclord.spalk;
 
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
 
         //cat test_success.ts | java -classpath .\target\classes com.garliclord.spalk.Main
 
         MpegTsParser parser = new MpegTsParser();
-        Result result = parser.parse(System.in);
+        Result result = null;
+        try {
+            result = parser.parse(System.in);
+        } catch (IOException e) {
+            System.out.printf("Error: %s", e.getMessage());
+            System.exit(1);
+        }
 
         if(result.isSuccessful()){
             for(int pid : result.pids()) {
