@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
 
     @Test
-    void printOutputs() {
+    void main() {
         //TODO integration test
     }
 }

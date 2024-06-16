@@ -14,7 +14,7 @@ public class MpegTsParser {
     int errorByteOffset = -1;
 
     public Result parse(InputStream input) throws IOException {
-        try (BufferedInputStream bin = new BufferedInputStream(input)) {
+        try (PositionalBufferedInputStream bin = new PositionalBufferedInputStream(input)) {
             int temp;
             do {
                 temp = bin.read();
@@ -39,7 +39,7 @@ public class MpegTsParser {
             int start = temp;
             byte[] pidContainer = new byte[2];
             List<Integer> pids = new ArrayList<>();
-            int packetCount = 0;
+            long packetCount = 0;
 
             //foreach packet get pid
             //assume we start with syncbyte
@@ -51,8 +51,7 @@ public class MpegTsParser {
                         bin.skip(PACKET_LENGTH - 3);
                         packetCount ++;
                         if (bin.read() != SYNC_BYTE){
-                            return new Result(false, List.of(), packetCount, errorByteOffset);
-                            //TODO need to keep count of byteoffset
+                            return new Result(false, List.of(), packetCount, bin.getPosition());
                         };
                 }
             } else {
